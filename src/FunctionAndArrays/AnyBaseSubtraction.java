@@ -30,6 +30,13 @@ public class AnyBaseSubtraction {
 
 			int tempDiff = dig2 - dig1 + borrow;
 
+			if (tempDiff < 0) {
+				tempDiff += base;
+				borrow = -1;
+			} else {
+				borrow = 0;
+			}
+
 			sub += (tempDiff * mult);
 
 			num1 /= 10;
