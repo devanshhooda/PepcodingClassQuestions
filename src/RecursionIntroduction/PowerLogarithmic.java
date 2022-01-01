@@ -1,4 +1,4 @@
-package RecursionAndBacktracking;
+package RecursionIntroduction;
 
 import java.util.Scanner;
 
