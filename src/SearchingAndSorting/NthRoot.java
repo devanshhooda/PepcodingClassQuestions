@@ -2,20 +2,20 @@ package SearchingAndSorting;
 
 public class NthRoot {
 
-	public int NthRoot(int n, int m) {
+	public int nthRoot(int n, int num) {
 
 		int low = 1;
-		int high = m;
+		int high = num;
 
 		while (low <= high) {
 
 			int mid = low + (high - low) / 2;
 
-			double square = Math.pow(mid, n);
+			double powerVal = Math.pow(mid, n);
 
-			if (square < m) {
+			if (powerVal < num) {
 				low = mid + 1;
-			} else if (square > m) {
+			} else if (powerVal > num) {
 				high = mid - 1;
 			} else {
 				return mid;
