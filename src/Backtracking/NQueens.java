@@ -12,30 +12,32 @@ public class NQueens {
 
 		int[][] chess = new int[n][n];
 
-		printNQueens(chess, new boolean[n][n], 0, "");
+		printNQueens(chess, 0, "");
 
 	}
 
-	private static void printNQueens(int[][] chess, boolean[][] visited, int row, String qsf) {
+	private static void printNQueens(int[][] chess, int row, String qsf) {
 
-		if (row > chess[row].length) {
+		// -ve base case
+		if (row > chess.length) {
 			return;
 		}
 
+		// +ve base case
 		if (row == chess.length) {
-			System.out.println(qsf);
+			System.out.println(qsf + ".");
 			return;
 		}
 
 		for (int col = 0; col < chess[row].length; col++) {
 
-			if (visited[row][col] == false && isValidCol(chess, col)) {
+			if (isValidCol(chess, row, col)) {
 
-				visited[row][col] = true;
+				chess[row][col] = 1;
 
-				printNQueens(chess, visited, row + 1, qsf + row + "-" + col);
+				printNQueens(chess, (row + 1), (qsf + row + "-" + col + ", "));
 
-				visited[row][col] = false;
+				chess[row][col] = 0;
 
 			}
 
@@ -43,34 +45,42 @@ public class NQueens {
 
 	}
 
-	private static boolean isValidCol(int[][] chess, int col) {
+	private static boolean isValidCol(int[][] chess, int row, int col) {
 
-		for (int row = 0; row < chess.length; row++) {
+		if (chess[row][col] == 1) {
+			return false;
+		}
 
-			if (chess[row][col] == 1) {
+		int r = row;
+		int c = col;
+
+		// column check
+		while (r >= 0) {
+			if (chess[r][c] == 1) {
 				return false;
 			}
+			r--;
+		}
 
-			int r = row;
-			int c = col;
-			while (row >= 0 && col >= 0) {
-				if (chess[r][c] == 1) {
-					return false;
-				}
-				r--;
-				c--;
+		r = row;
+		// left diagonal check
+		while (r >= 0 && c >= 0) {
+			if (chess[r][c] == 1) {
+				return false;
 			}
+			r--;
+			c--;
+		}
 
-			r = row;
-			c = col;
-			while (row >= 0 && col < chess[row].length) {
-				if (chess[r][c] == 1) {
-					return false;
-				}
-				r--;
-				c++;
+		r = row;
+		c = col;
+		// right diagonal check
+		while (r >= 0 && c < chess[row].length) {
+			if (chess[r][c] == 1) {
+				return false;
 			}
-
+			r--;
+			c++;
 		}
 
 		return true;
